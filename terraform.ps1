@@ -42,7 +42,9 @@ try {
 }
 
 # Step 5: Authenticate w/ Azure
-az login -u @lab.CloudPortalCredential(goat).Username -p @lab.CloudPortalCredential(goat).Password
+export AZURE_USERNAME="@lab.CloudPortalCredential(goat).Username"
+export AZURE_PASSWORD="@lab.CloudPortalCredential(goat).Password"
+az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
 
 
 
