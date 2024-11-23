@@ -41,7 +41,12 @@ try {
     Exit 1
 }
 
-# Step 5: Initialize Terraform in WSL
+# Step 5: Authenticate w/ Azure
+az login -u @lab.CloudPortalCredential(goat).Username -p @lab.CloudPortalCredential(goat).Password
+
+
+
+# Step 6: Initialize Terraform in WSL
 Write-Host "Initializing Terraform..." -ForegroundColor Green
 try {
     $TerraformInit = wsl terraform -chdir=/root/AzureGoat init
@@ -55,7 +60,7 @@ try {
     Exit 1
 }
 
-# Step 6: Apply the Terraform configuration with the Subscription ID
+# Step 7: Apply the Terraform configuration with the Subscription ID
 Write-Host "Applying Terraform configuration..." -ForegroundColor Green
 try {
     $TerraformApply = wsl terraform -chdir=/root/AzureGoat apply -auto-approve -var "subscription_id=$AzureSubscriptionId"
@@ -69,5 +74,5 @@ try {
     Exit 1
 }
 
-# Step 7: Completion message
+# Step 8: Completion message
 Write-Host "Terraform provisioning complete. All resources have been provisioned in Azure." -ForegroundColor Green
