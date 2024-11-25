@@ -77,7 +77,8 @@ try {
  $AZURE_USERNAME="@lab.CloudPortalCredential(goat).Username"
  $AZURE_PASSWORD="@lab.CloudPortalCredential(goat).Password"
 # az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
-
+$SecurePassword = ConvertTo-SecureString $AzurePassword -AsPlainText -Force
+$AzureCredentials = New-Object System.Management.Automation.PSCredential($AzureUsername, $SecurePassword)
 Connect-AzAccount -Credential $AzureCredentials -ErrorAction SilentlyIgnore
 
 
