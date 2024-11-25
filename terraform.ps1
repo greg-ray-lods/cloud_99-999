@@ -1,5 +1,7 @@
 
 param (
+    [string]$AzureUsername,
+    [string]$AzurePassword,
     [string]$AzureSubscriptionId
 )
 
@@ -32,7 +34,7 @@ Write-Output "Terraform actions completed with Subscription ID: $AzureSubscripti
 $TFMainURL = "https://raw.githubusercontent.com/greg-ray-lods/cloud_99-999/refs/heads/main/main.tf"
 $WSLPath = "\\wsl.localhost\Ubuntu\root\AzureGoat"
 $TFMainPath = "$WSLPath\main.tf"
-$AzureSubscriptionId = "@lab.CloudSubscription.Id" # Subscription ID from your environment
+$AzureSubscriptionId = "" # Subscription ID from your environment
 
 # Step 1: Ensure required variables are set
 Write-Host "Validating environment variables..." -ForegroundColor Green
@@ -72,9 +74,11 @@ try {
 }
 
 # Step 5: Authenticate w/ Azure
-# $AZURE_USERNAME="@lab.CloudPortalCredential(goat).Username"
-# $AZURE_PASSWORD="@lab.CloudPortalCredential(goat).Password"
- az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
+ $AZURE_USERNAME="@lab.CloudPortalCredential(goat).Username"
+ $AZURE_PASSWORD="@lab.CloudPortalCredential(goat).Password"
+# az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
+
+Connect-AzAccount -Credential $AzureCredentials -ErrorAction SilentlyIgnore
 
 
 
