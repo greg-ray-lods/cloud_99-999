@@ -74,7 +74,7 @@ try {
 # Step 5: Authenticate w/ Azure
 # $AZURE_USERNAME="@lab.CloudPortalCredential(goat).Username"
 # $AZURE_PASSWORD="@lab.CloudPortalCredential(goat).Password"
-# az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
+ az login -u $AZURE_USERNAME -p $AZURE_PASSWORD
 
 
 
