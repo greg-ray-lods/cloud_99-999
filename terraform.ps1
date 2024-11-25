@@ -34,14 +34,14 @@ Write-Output "Terraform actions completed with Subscription ID: $AzureSubscripti
 $TFMainURL = "https://raw.githubusercontent.com/greg-ray-lods/cloud_99-999/refs/heads/main/main.tf"
 $WSLPath = "\\wsl.localhost\Ubuntu\root\AzureGoat"
 $TFMainPath = "$WSLPath\main.tf"
-$AzureSubscriptionId = "" # Subscription ID from your environment
+#$AzureSubscriptionId = "" # Subscription ID from your environment
 
 # Step 1: Ensure required variables are set
-Write-Host "Validating environment variables..." -ForegroundColor Green
-if (-Not $AzureSubscriptionId) {
-    Write-Host "Error: Subscription ID is not set." -ForegroundColor Red
-    Exit 1
-}
+# Write-Host "Validating environment variables..." -ForegroundColor Green
+# if (-Not $AzureSubscriptionId) {
+#     Write-Host "Error: Subscription ID is not set." -ForegroundColor Red
+#     Exit 1
+# }
 if (-Not (Test-Path -Path $WSLPath)) {
     Write-Host "Error: WSL path does not exist: $WSLPath" -ForegroundColor Red
     Exit 1
