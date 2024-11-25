@@ -14,14 +14,14 @@ if (-Not $AzureSubscriptionId) {
 Write-Output "Using Azure Subscription ID: $AzureSubscriptionId"
 
 # Set Azure context
-try {
-    Write-Output "Setting Azure subscription context..."
-    Set-AzContext -SubscriptionId $AzureSubscriptionId -ErrorAction Stop
-    Write-Output "Azure subscription context set successfully."
-} catch {
-    Write-Output "Failed to set Azure subscription context: $_"
-    Exit 1
-}
+# try {
+#     Write-Output "Setting Azure subscription context..."
+#     Set-AzContext -SubscriptionId $AzureSubscriptionId -ErrorAction Stop
+#     Write-Output "Azure subscription context set successfully."
+# } catch {
+#     Write-Output "Failed to set Azure subscription context: $_"
+#     Exit 1
+# }
 
 # Example of additional Terraform-related actions (replace with actual implementation)
 Write-Output "Running Terraform actions with subscription ID: $AzureSubscriptionId"
