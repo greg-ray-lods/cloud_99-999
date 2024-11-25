@@ -1,3 +1,33 @@
+
+param (
+    [string]$AzureSubscriptionId
+)
+
+# Validate input
+if (-Not $AzureSubscriptionId) {
+    Write-Output "Error: AzureSubscriptionId is not provided."
+    Exit 1
+}
+
+Write-Output "Using Azure Subscription ID: $AzureSubscriptionId"
+
+# Set Azure context
+try {
+    Write-Output "Setting Azure subscription context..."
+    Set-AzContext -SubscriptionId $AzureSubscriptionId -ErrorAction Stop
+    Write-Output "Azure subscription context set successfully."
+} catch {
+    Write-Output "Failed to set Azure subscription context: $_"
+    Exit 1
+}
+
+# Example of additional Terraform-related actions (replace with actual implementation)
+Write-Output "Running Terraform actions with subscription ID: $AzureSubscriptionId"
+# Add your Terraform commands here...
+
+Write-Output "Terraform actions completed with Subscription ID: $AzureSubscriptionId"
+
+
 # Variables
 $TFMainURL = "https://raw.githubusercontent.com/greg-ray-lods/cloud_99-999/refs/heads/main/main.tf"
 $WSLPath = "\\wsl.localhost\Ubuntu\root\AzureGoat"
