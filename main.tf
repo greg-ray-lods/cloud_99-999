@@ -27,40 +27,40 @@ resource "random_id" "storage_suffix" {
 }
 
 # Resource Group
-resource "azurerm_resource_group" "example" {
+resource "azurerm_resource_group" "goat" {
   name     = "azuregoat_app"
   location = "East US"
 }
 
 # Virtual Network
-resource "azurerm_virtual_network" "example" {
-  name                = "example-vnet"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_virtual_network" "goat" {
+  name                = "goat-vnet"
+  location            = azurerm_resource_group.goat.location
+  resource_group_name = azurerm_resource_group.goat.name
   address_space       = ["10.0.0.0/16"]
 }
 
 # Subnet
-resource "azurerm_subnet" "example" {
-  name                 = "example-subnet"
-  resource_group_name  = azurerm_resource_group.example.name
-  virtual_network_name = azurerm_virtual_network.example.name
+resource "azurerm_subnet" "goat" {
+  name                 = "goat-subnet"
+  resource_group_name  = azurerm_resource_group.goat.name
+  virtual_network_name = azurerm_virtual_network.goat.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
 # Public IPs
 resource "azurerm_public_ip" "windows_vm_ip" {
   name                = "windows-vm-ip"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.goat.location
+  resource_group_name = azurerm_resource_group.goat.name
   allocation_method   = "Static"
   sku                 = "Standard"
 }
 
 resource "azurerm_public_ip" "ubuntu_vm_ip" {
   name                = "ubuntu-vm-ip"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.goat.location
+  resource_group_name = azurerm_resource_group.goat.name
   allocation_method   = "Static"
   sku                 = "Standard"
 }
@@ -68,12 +68,12 @@ resource "azurerm_public_ip" "ubuntu_vm_ip" {
 # Network Interfaces
 resource "azurerm_network_interface" "windows_nic" {
   name                = "windows-nic"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.goat.location
+  resource_group_name = azurerm_resource_group.goat.name
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.example.id
+    subnet_id                     = azurerm_subnet.goat.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.windows_vm_ip.id
   }
@@ -81,12 +81,12 @@ resource "azurerm_network_interface" "windows_nic" {
 
 resource "azurerm_network_interface" "ubuntu_nic" {
   name                = "ubuntu-nic"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.goat.location
+  resource_group_name = azurerm_resource_group.goat.name
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.example.id
+    subnet_id                     = azurerm_subnet.goat.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.ubuntu_vm_ip.id
   }
@@ -95,8 +95,8 @@ resource "azurerm_network_interface" "ubuntu_nic" {
 # Windows VM
 resource "azurerm_virtual_machine" "windows_vm" {
   name                  = "windows-vm"
-  location              = azurerm_resource_group.example.location
-  resource_group_name   = azurerm_resource_group.example.name
+  location              = azurerm_resource_group.goat.location
+  resource_group_name   = azurerm_resource_group.goat.name
   network_interface_ids = [azurerm_network_interface.windows_nic.id]
   vm_size               = "Standard_DS1_v2"
 
@@ -129,8 +129,8 @@ resource "azurerm_virtual_machine" "windows_vm" {
 # Ubuntu VM
 resource "azurerm_virtual_machine" "ubuntu_vm" {
   name                  = "ubuntu-vm"
-  location              = azurerm_resource_group.example.location
-  resource_group_name   = azurerm_resource_group.example.name
+  location              = azurerm_resource_group.goat.location
+  resource_group_name   = azurerm_resource_group.goat.name
   network_interface_ids = [azurerm_network_interface.ubuntu_nic.id]
   vm_size               = "Standard_DS1_v2"
 
@@ -160,10 +160,10 @@ resource "azurerm_virtual_machine" "ubuntu_vm" {
 }
 
 # Azure Storage Account
-resource "azurerm_storage_account" "example" {
+resource "azurerm_storage_account" "goat" {
   name                     = "storacct${random_id.storage_suffix.hex}"
-  resource_group_name      = azurerm_resource_group.example.name
-  location                 = azurerm_resource_group.example.location
+  resource_group_name      = azurerm_resource_group.goat.name
+  location                 = azurerm_resource_group.goat.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
