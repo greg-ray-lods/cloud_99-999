@@ -1,7 +1,7 @@
 # Configure the Azure provider
 provider "azurerm" {
   features {}
-  subscription_id = var.subscription_id
+  subscription_id = var.subscription_id # Use the variable for subscription_id
 }
 
 # Variables
